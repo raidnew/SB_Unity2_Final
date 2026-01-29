@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IMove
+public interface IMove
 {
-    
+    public void Move(Vector3 direction, float speed);
 }
