@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NetMain
   dontDestroyOnLoad: 1
   runInBackground: 1
-  headlessStartMode: 1
+  headlessStartMode: 0
   editorAutoStart: 0
   sendRate: 60
   offlineScene: 
@@ -300,8 +300,8 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 6738257551880930299, guid: bfdf4eca6601ac5408a82451805e0b0d, type: 3}
-  autoCreatePlayer: 1
+  playerPrefab: {fileID: 0}
+  autoCreatePlayer: 0
   playerSpawnMethod: 0
   spawnPrefabs: []
   exceptionsDisconnect: 1
@@ -686,6 +686,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 2041142157}
+  - {fileID: 395517618}
   _playerFactoryPrefab: {fileID: 8317468797966693046, guid: c3ebf70772b50544495b6135fd26c611, type: 3}
 --- !u!4 &1244889043
 Transform:

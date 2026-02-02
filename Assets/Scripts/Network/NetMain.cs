@@ -1,28 +1,69 @@
 ﻿using Mirror;
 using Mirror.BouncyCastle.Asn1.Cmp;
 using UnityEngine;
+using VContainer;
 
-public class NetMain : NetworkManager
+
+
+using Mirror;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NetMan : NetworkManager
 {
-    public override void OnClientConnect()
-    {
-        Debug.Log("Client Connected");
-    }
+    bool playerSpawned;
+    bool playerConnected;
 
-    public override void OnStartServer()
+    private PlayersFactory _playersFactory;
+
+
+    [Inject]
+    public void Construct(PlayersFactory playerFactory)
     {
-        Debug.Log("Server Started");
-        base.OnStartServer();
-        NetworkServer.RegisterHandler<PosMessage>(OnCreateCharacter); //указываем, какой struct должен прийти на сервер, чтобы выполнился свапн
+        _playersFactory = playerFactory;
     }
 
     public void OnCreateCharacter(NetworkConnectionToClient conn, PosMessage message)
     {
+        ControlPlayer go = _playersFactory.Create(); 
+        NetworkServer.AddPlayerForConnection(conn, go.gameObject); //присоеднияем gameObject к пулу сетевых объектов и отправляем информацию об этом остальным игрокам
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        NetworkServer.RegisterHandler<PosMessage>(OnCreateCharacter); //указываем, какой struct должен прийти на сервер, чтобы выполнился свапн
+
+    }
+
+    public void ActivatePlayerSpawn()
+    {
+        Vector3 pos = Input.mousePosition;
+        pos.z = 10f;
+        pos = Camera.main.ScreenToWorldPoint(pos);
+
+        PosMessage m = new PosMessage() { vector2 = pos }; //создаем struct определенного типа, чтобы сервер понял к чему эти данные относятся
+        NetworkClient.Send(m); //отправка сообщения на сервер с координатами спавна
+        playerSpawned = true;
+    }
+
+    public override void OnClientConnect()
+    {
+        base.OnClientConnect();
+        playerConnected = true;
+
+        ActivatePlayerSpawn();
+    }
+
+    private void Update()
+    {
         /*
-        GameObject go = Instantiate(playerPrefab, message.vector2, Quaternion.identity); //локально на сервере создаем gameObject
-        NetworkServer.AddPlayerForConnection(conn, go); //присоеднияем gameObject к пулу сетевых объектов и отправляем информацию об этом остальным игрокам
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !playerSpawned && playerConnected)
+        {
+            ActivatePlayerSpawn();
+        }
         */
-        Debug.Log("OnCreateCharacter");
     }
 }
 
