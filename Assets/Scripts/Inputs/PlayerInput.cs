@@ -2,13 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : IMoveInput
 {
     public Action<Vector2> Move { get; set; }
 
     private InputSystem_Actions _inputSystem;
 
-    void Awake()
+    PlayerInput()
     {
         _inputSystem = new InputSystem_Actions();
         _inputSystem.Enable();
