@@ -17,7 +17,19 @@ public class ControlPlayer : NetworkBehaviour, IMove
 
     private void Awake()
     {
-        
+        //Debug.Log($"isLocalPlayer {isLocalPlayer}");
+
+    }
+
+    private void OnMove(Vector2 vector)
+    {
+        Debug.Log(vector);
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
         if (IsOwner)
         {
             Debug.Log("Control player Awake Local");
@@ -26,11 +38,6 @@ public class ControlPlayer : NetworkBehaviour, IMove
         {
             Debug.Log("Control player Awake Network");
         }
-    }
-
-    private void OnMove(Vector2 vector)
-    {
-        Debug.Log(vector);
     }
 
     public void Move(Vector3 direction, float speed)

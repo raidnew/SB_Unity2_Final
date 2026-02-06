@@ -17,7 +17,6 @@ public class PlayersFactory : MonoBehaviour, IFactory<ControlPlayer>
     public ControlPlayer Create()
     {
         ControlPlayer newPlayer = Instantiate(_playerPrefab);
-        Debug.Log($"{_objectResolver} {newPlayer}");
         _objectResolver.Inject(newPlayer);
         return newPlayer;
     }

@@ -1,47 +1,36 @@
 ﻿using Mirror;
-using Mirror.BouncyCastle.Asn1.Cmp;
-using UnityEngine;
-using VContainer;
-
-
-
-using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 public class NetMan : NetworkManager
 {
     bool playerSpawned;
     bool playerConnected;
-
     private PlayersFactory _playersFactory;
 
-
     [Inject]
-    public void Construct(PlayersFactory playerFactory)
+    public void Construct(PlayersFactory playersFactory)
     {
-        _playersFactory = playerFactory;
+        _playersFactory = playersFactory;
     }
 
     public void OnCreateCharacter(NetworkConnectionToClient conn, PosMessage message)
     {
-        ControlPlayer go = _playersFactory.Create(); 
-        NetworkServer.AddPlayerForConnection(conn, go.gameObject); //присоеднияем gameObject к пулу сетевых объектов и отправляем информацию об этом остальным игрокам
+        GameObject go = CreatePlayer();
+        NetworkServer.AddPlayerForConnection(conn, go); //присоеднияем gameObject к пулу сетевых объектов и отправляем информацию об этом остальным игрокам
     }
 
     public override void OnStartServer()
     {
         base.OnStartServer();
         NetworkServer.RegisterHandler<PosMessage>(OnCreateCharacter); //указываем, какой struct должен прийти на сервер, чтобы выполнился свапн
-
     }
 
     public void ActivatePlayerSpawn()
     {
-        Vector3 pos = Input.mousePosition;
-        pos.z = 10f;
-        pos = Camera.main.ScreenToWorldPoint(pos);
+        Vector3 pos = Vector3.zero;
 
         PosMessage m = new PosMessage() { vector2 = pos }; //создаем struct определенного типа, чтобы сервер понял к чему эти данные относятся
         NetworkClient.Send(m); //отправка сообщения на сервер с координатами спавна
@@ -52,19 +41,22 @@ public class NetMan : NetworkManager
     {
         base.OnClientConnect();
         playerConnected = true;
-
-        ActivatePlayerSpawn();
     }
 
     private void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !playerSpawned && playerConnected)
+        if (!playerSpawned && playerConnected)
         {
             ActivatePlayerSpawn();
         }
-        */
     }
+
+    private GameObject CreatePlayer()
+    {
+        ControlPlayer player = _playersFactory.Create();
+        return player.gameObject;
+    }
+
 }
 
 public struct PosMessage : NetworkMessage //наследуемся от интерфейса NetworkMessage, чтобы система поняла какие данные упаковывать

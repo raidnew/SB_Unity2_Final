@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInput : IMoveInput
+public class PlayerInput: IMoveInput
 {
     public Action<Vector2> Move { get; set; }
 
