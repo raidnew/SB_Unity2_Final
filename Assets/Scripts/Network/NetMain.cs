@@ -1,14 +1,24 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
+using VContainer;
 
 namespace Mirror.Examples.CharacterSelection
 {
     public class NetMain : NetworkManager
     {
         [SerializeField] private GameObject _playersPrefab;
+        private PlayersFactory _playersFactory;
 
         public struct CreateCharacterMessage : NetworkMessage
         {
             public string playerName;
+        }
+
+        [Inject]
+
+        public void Construct(PlayersFactory playersFactory)
+        {
+            _playersFactory = playersFactory;
         }
 
         public override void OnStartServer()
@@ -32,8 +42,9 @@ namespace Mirror.Examples.CharacterSelection
         void OnCreateCharacter(NetworkConnectionToClient conn, CreateCharacterMessage message)
         {
             Transform startPos = GetStartPosition();
-            GameObject playerObject = Instantiate(_playersPrefab);
-            NetworkServer.AddPlayerForConnection(conn, playerObject);
+            ControlPlayer playerObject = _playersFactory.Create();// Instantiate(_playersPrefab);
+            Debug.Log("OnCreateCharacter");
+            NetworkServer.AddPlayerForConnection(conn, playerObject.gameObject);
         }
 
     }

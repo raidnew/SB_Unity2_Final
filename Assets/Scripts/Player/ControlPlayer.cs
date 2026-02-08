@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
-using Unity.Netcode;
-using Unity.Netcode.Components;
+using Mirror;
 using UnityEngine;
 using VContainer;
 
@@ -21,13 +20,10 @@ public class ControlPlayer : NetworkBehaviour, IMove
 
     private void Update()
     {
-        if (IsLocalPlayer)
+        if (isOwned)
         {
-            Debug.Log("111");
+            Move(_directon * _speed * Time.deltaTime);
         }
-
-        //Debug.Log($"isLocalPlayer {isLocalPlayer}");
-        Move(_directon * _speed * Time.deltaTime);
     }
 
     private void OnMove(Vector2 vector)
@@ -35,15 +31,8 @@ public class ControlPlayer : NetworkBehaviour, IMove
         _directon = vector;
     }
 
-    public override void OnNetworkSpawn()
-    {
-        Debug.Log("OnNetworkSpawn");
-        base.OnNetworkSpawn();
-    }
-
     public void Move(Vector3 delta)
     {
-        NetworkTransform test = GetComponent<NetworkTransform>();
         transform.Translate(delta);
     }
 }

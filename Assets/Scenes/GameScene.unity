@@ -322,6 +322,7 @@ MonoBehaviour:
   evaluationInterval: 3
   timeInterpolationGui: 0
   _playersPrefab: {fileID: 6738257551880930299, guid: bfdf4eca6601ac5408a82451805e0b0d, type: 3}
+  _playersFactory: {fileID: 0}
 --- !u!4 &395517620
 Transform:
   m_ObjectHideFlags: 0
@@ -703,6 +704,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 395517618}
+  _playersFactory: {fileID: 6567853586909833815, guid: c3ebf70772b50544495b6135fd26c611, type: 3}
 --- !u!4 &1244889043
 Transform:
   m_ObjectHideFlags: 0
