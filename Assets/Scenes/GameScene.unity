@@ -321,6 +321,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
+  _playersPrefab: {fileID: 6738257551880930299, guid: bfdf4eca6601ac5408a82451805e0b0d, type: 3}
 --- !u!4 &395517620
 Transform:
   m_ObjectHideFlags: 0
@@ -362,7 +363,7 @@ MonoBehaviour:
   MaximizeSocketBuffers: 1
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1194
-  debugLog: 1
+  debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
 --- !u!114 &395517622
@@ -702,7 +703,6 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 395517618}
-  _playerFactoryPrefab: {fileID: 8317468797966693046, guid: c3ebf70772b50544495b6135fd26c611, type: 3}
 --- !u!4 &1244889043
 Transform:
   m_ObjectHideFlags: 0

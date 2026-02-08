@@ -1,47 +1,49 @@
 using System;
+using System.Globalization;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 using VContainer;
 
 public class ControlPlayer : NetworkBehaviour, IMove
 {
     private IMoveInput _playerInput;
+    private Vector3 _directon;
+    private float _speed = 1;
 
     [Inject]
     public void Construct(IMoveInput playerInput)
     {
+        Debug.Log("ControlPlayer Construct");
         _playerInput = playerInput;
         _playerInput.Move += OnMove;
-        Debug.Log("_playerInput: " + _playerInput);
     }
 
-    private void Awake()
+    private void Update()
     {
-        //Debug.Log($"isLocalPlayer {isLocalPlayer}");
+        if (IsLocalPlayer)
+        {
+            Debug.Log("111");
+        }
 
+        //Debug.Log($"isLocalPlayer {isLocalPlayer}");
+        Move(_directon * _speed * Time.deltaTime);
     }
 
     private void OnMove(Vector2 vector)
     {
-        Debug.Log(vector);
+        _directon = vector;
     }
 
     public override void OnNetworkSpawn()
     {
+        Debug.Log("OnNetworkSpawn");
         base.OnNetworkSpawn();
-
-        if (IsOwner)
-        {
-            Debug.Log("Control player Awake Local");
-        }
-        else
-        {
-            Debug.Log("Control player Awake Network");
-        }
     }
 
-    public void Move(Vector3 direction, float speed)
+    public void Move(Vector3 delta)
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        NetworkTransform test = GetComponent<NetworkTransform>();
+        transform.Translate(delta);
     }
 }

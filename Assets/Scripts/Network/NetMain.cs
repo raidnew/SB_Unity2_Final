@@ -1,65 +1,40 @@
-﻿using Mirror;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using VContainer;
+﻿using UnityEngine;
 
-public class NetMan : NetworkManager
+namespace Mirror.Examples.CharacterSelection
 {
-    bool playerSpawned;
-    bool playerConnected;
-    private PlayersFactory _playersFactory;
-
-    [Inject]
-    public void Construct(PlayersFactory playersFactory)
+    public class NetMain : NetworkManager
     {
-        _playersFactory = playersFactory;
-    }
+        [SerializeField] private GameObject _playersPrefab;
 
-    public void OnCreateCharacter(NetworkConnectionToClient conn, PosMessage message)
-    {
-        GameObject go = CreatePlayer();
-        NetworkServer.AddPlayerForConnection(conn, go); //присоеднияем gameObject к пулу сетевых объектов и отправляем информацию об этом остальным игрокам
-    }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        NetworkServer.RegisterHandler<PosMessage>(OnCreateCharacter); //указываем, какой struct должен прийти на сервер, чтобы выполнился свапн
-    }
-
-    public void ActivatePlayerSpawn()
-    {
-        Vector3 pos = Vector3.zero;
-
-        PosMessage m = new PosMessage() { vector2 = pos }; //создаем struct определенного типа, чтобы сервер понял к чему эти данные относятся
-        NetworkClient.Send(m); //отправка сообщения на сервер с координатами спавна
-        playerSpawned = true;
-    }
-
-    public override void OnClientConnect()
-    {
-        base.OnClientConnect();
-        playerConnected = true;
-    }
-
-    private void Update()
-    {
-        if (!playerSpawned && playerConnected)
+        public struct CreateCharacterMessage : NetworkMessage
         {
-            ActivatePlayerSpawn();
+            public string playerName;
         }
+
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
+            NetworkServer.RegisterHandler<CreateCharacterMessage>(OnCreateCharacter);
+        }
+
+        public override void OnClientConnect()
+        {
+            base.OnClientConnect();
+
+            CreateCharacterMessage characterMessage = new CreateCharacterMessage
+            {
+                playerName = "1"
+            };
+
+            NetworkClient.Send(characterMessage);
+        }
+
+        void OnCreateCharacter(NetworkConnectionToClient conn, CreateCharacterMessage message)
+        {
+            Transform startPos = GetStartPosition();
+            GameObject playerObject = Instantiate(_playersPrefab);
+            NetworkServer.AddPlayerForConnection(conn, playerObject);
+        }
+
     }
-
-    private GameObject CreatePlayer()
-    {
-        ControlPlayer player = _playersFactory.Create();
-        return player.gameObject;
-    }
-
-}
-
-public struct PosMessage : NetworkMessage //наследуемся от интерфейса NetworkMessage, чтобы система поняла какие данные упаковывать
-{
-    public Vector2 vector2; //нельзя использовать Property
 }
