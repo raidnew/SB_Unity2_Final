@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 2162675191751059758}
   - component: {fileID: 8826363002246018732}
   - component: {fileID: 824151343066961787}
+  - component: {fileID: 3512915876891520191}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -185,7 +186,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a1df185913a07748815bf98e58fa1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlPlayer
-  ShowTopMostFoldoutHeaderGroup: 1
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!114 &8826363002246018732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,3 +240,30 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+--- !u!54 &3512915876891520191
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6738257551880930299}
+  serializedVersion: 5
+  m_Mass: 100
+  m_LinearDamping: 1
+  m_AngularDamping: 1
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0

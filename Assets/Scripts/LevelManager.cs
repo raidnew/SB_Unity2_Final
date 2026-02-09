@@ -12,14 +12,4 @@ public class LevelManager : MonoBehaviour
         _playersFactory = playerFactory;
     }
 
-    void Start()
-    {
-        //ControlPlayer player = _playersFactory.Create();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
