@@ -3,7 +3,7 @@ using UnityEngine;
 public class WindowsManager : MonoBehaviour
 {
 
-
+    private BaseWindow _currentWindow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
