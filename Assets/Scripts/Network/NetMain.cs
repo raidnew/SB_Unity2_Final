@@ -6,7 +6,6 @@ namespace Mirror.Examples.CharacterSelection
 {
     public class NetMain : NetworkManager
     {
-        [SerializeField] private GameObject _playersPrefab;
         private PlayersFactory _playersFactory;
 
         public struct CreateCharacterMessage : NetworkMessage
@@ -42,7 +41,7 @@ namespace Mirror.Examples.CharacterSelection
         void OnCreateCharacter(NetworkConnectionToClient conn, CreateCharacterMessage message)
         {
             Transform startPos = GetStartPosition();
-            ControlPlayer playerObject = _playersFactory.Create();// Instantiate(_playersPrefab);
+            ControlPlayer playerObject = _playersFactory.Create();
             Debug.Log("OnCreateCharacter");
             NetworkServer.AddPlayerForConnection(conn, playerObject.gameObject);
         }

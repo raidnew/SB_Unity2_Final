@@ -10,11 +10,12 @@ public class ControlPlayer : NetworkBehaviour, IMove
     private Vector3 _directon;
     private float _speed = 1;
 
-    [Inject]
-    public void Construct(IMoveInput playerInput)
+    private void Start()
     {
-        Debug.Log("ControlPlayer Construct");
-        _playerInput = playerInput;
+
+        Debug.Log($"{ObjectManager.Instance}");
+
+        _playerInput = ObjectManager.Instance.MoveInput;
         _playerInput.Move += OnMove;
     }
 
