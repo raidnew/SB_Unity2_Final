@@ -1,15 +1,13 @@
 using UnityEngine;
 
-public class BaseWindow : MonoBehaviour
+public class BaseWindow : MonoBehaviour, IWindow
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Hide()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Show()
     {
         
     }

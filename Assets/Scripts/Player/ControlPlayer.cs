@@ -15,7 +15,7 @@ public class ControlPlayer : NetworkBehaviour, IMove
 
     private void Start()
     {
-        _playerInput = ObjectManager.Instance.MoveInput;
+        _playerInput = ServiceLocator.Instance.MoveInput;
         _playerInput.Move += OnMove;
         _rigidbody = GetComponent<Rigidbody>();
     }
