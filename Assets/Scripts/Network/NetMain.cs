@@ -14,7 +14,6 @@ namespace Mirror.Examples.CharacterSelection
         }
 
         [Inject]
-
         public void Construct(PlayersFactory playersFactory)
         {
             _playersFactory = playersFactory;
