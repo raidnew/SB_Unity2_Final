@@ -6,48 +6,39 @@ public class WindowsManager : MonoBehaviour
 {
     private BaseWindow _currentWindow;
 
-    [SerializeField] private List<WindowData> _windowsList;
+    [SerializeField] private List<BaseWindow> _windowsList;
 
-    public virtual void OpenWindow(BaseWindow window)
+    public virtual T OpenWindow<T>(BaseWindow window) where T : BaseWindow
     {
-        Debug.Log($"Opening window: {window.name}");
-
         _currentWindow = Instantiate(window);
         _currentWindow.Close += OnCloseWindow;
         _currentWindow.transform.SetParent(transform, false);
         _currentWindow.gameObject.SetActive(true);
+        _currentWindow.Show();
+
+        Debug.Log($"Opening window: {_currentWindow}");
+
+        return _currentWindow as T;
     }
 
-    public virtual void OpenWindow(Window windowType)
+    public virtual T OpenWindow<T>() where T : BaseWindow
     {
-        BaseWindow window = _windowsList.Find(w => w.type == windowType).windowPrefab;
+        BaseWindow window = _windowsList.Find(w => w.GetType() == typeof(T));
         if(window != null)
-            OpenWindow(window);
+            return OpenWindow<T>(window);
         else 
-            Debug.LogError($"Window of type {windowType} not found in the list");   
+            Debug.LogError($"Window of type {typeof(T)} not found in the list");   
+        return null;
     }
 
-    public virtual void CloseWindow() 
-    { 
-        if(_currentWindow != null)
-            _currentWindow.Hide();
-    }
-
-    private void OnCloseWindow()
+    private void OnCloseWindow(IWindow window)
     {
-        CloseWindow();
+        if (_currentWindow == window)
+        {
+            _currentWindow.Close -= OnCloseWindow;
+            _currentWindow.gameObject.SetActive(false);
+            _currentWindow = null;
+        }
     }
 
-}
-
-public enum Window
-{
-    Main
-}
-
-[Serializable]
-public struct WindowData
-{
-    public Window type;
-    public BaseWindow windowPrefab; 
 }

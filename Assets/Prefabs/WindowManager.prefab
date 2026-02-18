@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -115,5 +115,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowsManager
   _windowsList:
-  - type: 0
-    windowPrefab: {fileID: 3648241023827146325, guid: 136ae087b83b56c4dac87791dab84131, type: 3}
+  - {fileID: 3648241023827146325, guid: 136ae087b83b56c4dac87791dab84131, type: 3}
+  - {fileID: 6725092363870472956, guid: 7d040127e1fe88e4bb744202552c56dd, type: 3}

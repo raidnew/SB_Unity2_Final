@@ -2,7 +2,7 @@ using System;
 
 public interface IWindow
 {
-    public Action Close { get; set; }
+    public Action<IWindow> Close { get; set; }
 
     void Show();
     void Hide();
