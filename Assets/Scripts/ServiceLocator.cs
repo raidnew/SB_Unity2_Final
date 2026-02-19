@@ -10,11 +10,14 @@ public class ServiceLocator : MonoBehaviour
     public IMoveInput MoveInput { get; private set; }
     public WindowsManager WindowsManager { get; private set; }
 
+    public Scenes Scenes { get; private set; }
+
     [Inject]
-    public void Construct(IMoveInput playerInput, WindowsManager windowManager)
+    public void Construct(IMoveInput playerInput, WindowsManager windowManager, Scenes scenes)
     {
         MoveInput = playerInput;
         WindowsManager = windowManager;
+        Scenes = scenes;
     }
 
     private void Awake()

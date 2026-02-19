@@ -6,8 +6,7 @@ using VContainer;
 public class Game : MonoBehaviour
 {
 
-    [SerializeField] private Scenes _scenes;
-
+    private Scenes _scenes;
     private WindowsManager _windowsManager;
     private MainWindow _mainWindow;
     private MultiPlayerWindow _multiplayerWindow;
@@ -19,6 +18,8 @@ public class Game : MonoBehaviour
             _networkManager = NetworkManager.singleton;
         if(_windowsManager == null)
             _windowsManager = ServiceLocator.Instance.WindowsManager;
+        if(_scenes == null)
+            _scenes = ServiceLocator.Instance.Scenes;
         OpenMainWindow();
     }
 
