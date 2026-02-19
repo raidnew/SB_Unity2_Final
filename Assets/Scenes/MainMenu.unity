@@ -726,6 +726,7 @@ GameObject:
   - component: {fileID: 641710215324509492}
   - component: {fileID: 2592816673327997693}
   - component: {fileID: 2592816673327997694}
+  - component: {fileID: 2592816673327997695}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -745,6 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecdab0d974186142a542d574708dd33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game
+  _scenes: {fileID: 2592816673327997695}
 --- !u!114 &2592816673327997694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,6 +759,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3340df3531fcd49409b00216fa230ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoesntRemove
+--- !u!114 &2592816673327997695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2592816673327997692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977119e2869adca459df22924879337b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneManager
 --- !u!114 &4749040636777109580
 MonoBehaviour:
   m_ObjectHideFlags: 0

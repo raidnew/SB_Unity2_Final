@@ -11,9 +11,10 @@ public class ServiceLocator : MonoBehaviour
     public WindowsManager WindowsManager { get; private set; }
 
     [Inject]
-    public void Construct(IMoveInput playerInput)
+    public void Construct(IMoveInput playerInput, WindowsManager windowManager)
     {
         MoveInput = playerInput;
+        WindowsManager = windowManager;
     }
 
     private void Awake()

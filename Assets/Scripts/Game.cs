@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using UnityEngine;
 using VContainer;
@@ -5,18 +6,19 @@ using VContainer;
 public class Game : MonoBehaviour
 {
 
+    [SerializeField] private Scenes _scenes;
+
     private WindowsManager _windowsManager;
     private MainWindow _mainWindow;
     private MultiPlayerWindow _multiplayerWindow;
-
-    [Inject]
-    public void Construct(WindowsManager windowsManager)
-    {
-        _windowsManager = windowsManager;
-    }
+    private NetworkManager _networkManager;
 
     private void Start()
     {
+        if(_networkManager == null)
+            _networkManager = NetworkManager.singleton;
+        if(_windowsManager == null)
+            _windowsManager = ServiceLocator.Instance.WindowsManager;
         OpenMainWindow();
     }
 
@@ -56,12 +58,19 @@ public class Game : MonoBehaviour
     private void OnStartServer()
     {
         Debug.Log($"OnStartServer");
+        _networkManager.StartServer();
+        CloseMultiplayerWindow();
+        _scenes.ShowlevelScene();
     }
 
     private void OnJoinToServer(string ip)
     {
         Debug.Log($"Multiplayer {ip}");
         CloseMultiplayerWindow();
+        _networkManager.networkAddress = ip;
+        _networkManager.StartClient();
+        CloseMultiplayerWindow();
+        _scenes.ShowlevelScene();
     }
 
     private void OnCancelMultiplayer()
@@ -79,5 +88,6 @@ public class Game : MonoBehaviour
     {
         Debug.Log("Single player");
         CloseMainWindow();
+        _scenes.ShowlevelScene();
     }
 }

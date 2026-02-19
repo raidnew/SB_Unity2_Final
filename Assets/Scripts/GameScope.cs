@@ -12,7 +12,7 @@ public class GameScope : LifetimeScope
         builder.Register<Container>(Lifetime.Singleton).As<IObjectResolver>();
         builder.Register<PlayerInput>(Lifetime.Singleton).As<IMoveInput>();
         builder.RegisterComponentInNewPrefab<PlayersFactory>(_playersFactory, Lifetime.Singleton);
-        builder.RegisterComponentInNewPrefab<WindowsManager>(_windowManager, Lifetime.Singleton);
+        builder.RegisterComponentInNewPrefab<WindowsManager>(_windowManager, Lifetime.Singleton).DontDestroyOnLoad();
     }
 
 }

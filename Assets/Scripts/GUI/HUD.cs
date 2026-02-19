@@ -1,11 +1,24 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [SerializeField] private Button _pause;
+
+    private WindowsManager _windowManager;
+
     void Start()
     {
-        
+        _windowManager = ServiceLocator.Instance.WindowsManager;
+        _pause.onClick.AddListener(OnPauseClick);
+    }
+
+    private void OnPauseClick()
+    {
+        Debug.Log("OnPauseClick");
+        _windowManager.OpenWindow<PauseWindow>();
     }
 
     // Update is called once per frame
