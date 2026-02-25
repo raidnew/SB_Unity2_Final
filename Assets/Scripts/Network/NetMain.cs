@@ -28,12 +28,10 @@ namespace Mirror.Examples.CharacterSelection
         public override void OnClientConnect()
         {
             base.OnClientConnect();
-
             CreateCharacterMessage characterMessage = new CreateCharacterMessage
             {
                 playerName = "1"
             };
-
             NetworkClient.Send(characterMessage);
         }
 
@@ -41,7 +39,6 @@ namespace Mirror.Examples.CharacterSelection
         {
             Transform startPos = GetStartPosition();
             ControlPlayer playerObject = _playersFactory.Create();
-            Debug.Log("OnCreateCharacter");
             NetworkServer.AddPlayerForConnection(conn, playerObject.gameObject);
         }
 

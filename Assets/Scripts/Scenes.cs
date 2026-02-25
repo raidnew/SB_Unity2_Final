@@ -1,17 +1,17 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 //UnityEngine.SceneManagement.SceneManager;
 
 public class Scenes : MonoBehaviour
 {
-
     public void ShowlevelScene()
     {
-        SceneManager.LoadScene(0);
+        NetworkManager.singleton.ServerChangeScene("GameScene");
     }
 
     public void ShowMenuScene()
     {
-        SceneManager.LoadScene(1);
+        NetworkManager.singleton.ServerChangeScene("MainMenu");
     }
 }

@@ -1,5 +1,7 @@
 using Mirror;
+using Mirror.Examples.CharacterSelection;
 using System;
+using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
@@ -10,12 +12,12 @@ public class Game : MonoBehaviour
     private WindowsManager _windowsManager;
     private MainWindow _mainWindow;
     private MultiPlayerWindow _multiplayerWindow;
-    private NetworkManager _networkManager;
+    private NetMain _networkManager;
 
     private void Start()
     {
         if(_networkManager == null)
-            _networkManager = NetworkManager.singleton;
+            _networkManager = ServiceLocator.Instance.GameNetwork;
         if(_windowsManager == null)
             _windowsManager = ServiceLocator.Instance.WindowsManager;
         if(_scenes == null)
@@ -59,13 +61,14 @@ public class Game : MonoBehaviour
     private void OnStartServer()
     {
         Debug.Log($"OnStartServer");
-        _networkManager.StartServer();
+        _networkManager.StartHost();
         CloseMultiplayerWindow();
         _scenes.ShowlevelScene();
     }
 
     private void OnJoinToServer(string ip)
     {
+        ip = "127.0.0.1";
         Debug.Log($"Multiplayer {ip}");
         CloseMultiplayerWindow();
         _networkManager.networkAddress = ip;
@@ -88,7 +91,7 @@ public class Game : MonoBehaviour
     private void OnStartSingle()
     {
         Debug.Log("Single player");
-        CloseMainWindow();
+        _networkManager.StartHost();
         _scenes.ShowlevelScene();
     }
 }
