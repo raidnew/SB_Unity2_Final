@@ -260,7 +260,6 @@ MonoBehaviour:
   _playersFactory: {fileID: 6567853586909833815, guid: c3ebf70772b50544495b6135fd26c611, type: 3}
   _windowManager: {fileID: 8160794020825131570, guid: de0e33ebc6b42e84daf89d9c40ea757b, type: 3}
   _scenes: {fileID: 2592816673327997695}
-  _network: {fileID: 4749040636777109580}
 --- !u!4 &759206156
 Transform:
   m_ObjectHideFlags: 0
@@ -333,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cef7e993230097469735ac46d24ae3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ServiceLocator
+  _network: {fileID: 4749040636777109580}
 --- !u!114 &1007412518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -874,7 +874,6 @@ GameObject:
   - component: {fileID: 4749040636777109580}
   - component: {fileID: 5040563829145718955}
   - component: {fileID: 2230334835179719115}
-  - component: {fileID: 5912990888072492854}
   m_Layer: 0
   m_Name: Network
   m_TagString: Untagged
@@ -882,51 +881,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5912990888072492854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5912990888072492853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Mirror::Mirror.NetworkManager
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  headlessStartMode: 0
-  editorAutoStart: 0
-  sendRate: 60
-  offlineScene: 
-  onlineScene: 
-  offlineSceneLoadDelay: 0
-  transport: {fileID: 0}
-  networkAddress: localhost
-  maxConnections: 100
-  disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs: []
-  exceptionsDisconnect: 1
-  snapshotSettings:
-    bufferTimeMultiplier: 2
-    bufferLimit: 32
-    catchupNegativeThreshold: -1
-    catchupPositiveThreshold: 1
-    catchupSpeed: 0.019999999552965164
-    slowdownSpeed: 0.03999999910593033
-    driftEmaDuration: 1
-    dynamicAdjustment: 1
-    dynamicAdjustmentTolerance: 1
-    deliveryTimeEmaDuration: 2
-  evaluationMethod: 0
-  evaluationInterval: 3
-  timeInterpolationGui: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

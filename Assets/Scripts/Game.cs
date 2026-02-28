@@ -70,7 +70,7 @@ public class Game : MonoBehaviour
     {
         ip = "127.0.0.1";
         Debug.Log($"Multiplayer {ip}");
-        CloseMultiplayerWindow();
+        CloseMainWindow();
         _networkManager.networkAddress = ip;
         _networkManager.StartClient();
         CloseMultiplayerWindow();
@@ -91,6 +91,7 @@ public class Game : MonoBehaviour
     private void OnStartSingle()
     {
         Debug.Log("Single player");
+        CloseMainWindow();
         _networkManager.StartHost();
         _scenes.ShowlevelScene();
     }
