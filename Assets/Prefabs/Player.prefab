@@ -189,6 +189,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  _bullet: {fileID: 8521626083088939878, guid: 54e300082d6413345bf9567fbb8fd79f, type: 3}
 --- !u!114 &8826363002246018732
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInput: IMoveInput
 {
     public Action<Vector2> Move { get; set; }
+    public Action Shoot { get; set; }
 
     private InputSystem_Actions _inputSystem;
 
@@ -20,6 +21,7 @@ public class PlayerInput: IMoveInput
         _inputSystem.Player.Move.started += OnMove;
         _inputSystem.Player.Move.performed += OnMove;
         _inputSystem.Player.Move.canceled += OnMove;
+        _inputSystem.Player.Attack.started += OnShoot;
     }
 
     private void DeinitMoveInput()
@@ -27,11 +29,17 @@ public class PlayerInput: IMoveInput
         _inputSystem.Player.Move.started -= OnMove;
         _inputSystem.Player.Move.performed -= OnMove;
         _inputSystem.Player.Move.canceled -= OnMove;
+        _inputSystem.Player.Attack.started -= OnShoot;
     }
 
     private void OnMove(InputAction.CallbackContext context)
     {
         Move?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    private void OnShoot(InputAction.CallbackContext context)
+    {
+        Shoot?.Invoke();
     }
 }
 

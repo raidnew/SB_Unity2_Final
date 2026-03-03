@@ -4,4 +4,5 @@ using UnityEngine;
 public interface IMoveInput
 {
     Action<Vector2> Move { get; set; }
+    Action Shoot { get; set; }
 }
