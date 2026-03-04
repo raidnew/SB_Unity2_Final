@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using Assets.Scripts.Interfaces;
+using Unity.VisualScripting;
 using UnityEngine;
 using VContainer;
 
@@ -7,10 +8,17 @@ namespace Mirror.Examples.CharacterSelection
     public class NetMain : NetworkManager
     {
         private PlayersFactory _playersFactory;
+        [SerializeField] private GameObject _bulletPrefab;
 
         public struct CreateCharacterMessage : NetworkMessage
         {
             public string playerName;
+        }
+
+        public struct CharacterShootMessage : NetworkMessage
+        {
+            public Vector3 barrel;
+            public Vector3 direction;
         }
 
         [Inject]
@@ -23,6 +31,7 @@ namespace Mirror.Examples.CharacterSelection
         {
             base.OnStartServer();
             NetworkServer.RegisterHandler<CreateCharacterMessage>(OnCreateCharacter);
+            NetworkServer.RegisterHandler<CharacterShootMessage>(OnCharacterShoot);
         }
 
         public override void OnClientConnect()
@@ -35,11 +44,32 @@ namespace Mirror.Examples.CharacterSelection
             NetworkClient.Send(characterMessage);
         }
 
+        public void Shoot(IShooter shooter)
+        {
+            CharacterShootMessage shootMessage = new CharacterShootMessage
+            {
+                barrel = shooter.barrel,
+                direction = shooter.shootDirection
+            };
+            NetworkClient.Send(shootMessage);
+        }
+
+        private void SpawnBullet()
+        {
+            //_bulletFactory
+            //NetworkServer.Spawn();
+        }
+
         void OnCreateCharacter(NetworkConnectionToClient conn, CreateCharacterMessage message)
         {
             Transform startPos = GetStartPosition();
             ControlPlayer playerObject = _playersFactory.Create();
             NetworkServer.AddPlayerForConnection(conn, playerObject.gameObject);
+        }
+
+        private void OnCharacterShoot(NetworkConnectionToClient conn, CharacterShootMessage message)
+        {
+            NetworkServer.Spawn(_bulletPrefab, conn);
         }
 
     }
