@@ -74,7 +74,7 @@ public class Game : MonoBehaviour
         _networkManager.networkAddress = ip;
         _networkManager.StartClient();
         CloseMultiplayerWindow();
-        _scenes.ShowlevelScene();
+        //_scenes.ShowlevelScene();
     }
 
     private void OnCancelMultiplayer()

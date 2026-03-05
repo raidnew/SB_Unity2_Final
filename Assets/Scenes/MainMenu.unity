@@ -803,6 +803,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 6738257551880930299, guid: bfdf4eca6601ac5408a82451805e0b0d, type: 3}
+  - {fileID: 8521626083088939878, guid: 54e300082d6413345bf9567fbb8fd79f, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -818,6 +819,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
+  _bulletPrefab: {fileID: 8521626083088939878, guid: 54e300082d6413345bf9567fbb8fd79f, type: 3}
 --- !u!114 &5040563829145718955
 MonoBehaviour:
   m_ObjectHideFlags: 0

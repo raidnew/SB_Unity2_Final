@@ -69,7 +69,9 @@ namespace Mirror.Examples.CharacterSelection
 
         private void OnCharacterShoot(NetworkConnectionToClient conn, CharacterShootMessage message)
         {
-            NetworkServer.Spawn(_bulletPrefab, conn);
+            Debug.Log($"Shoot from {message.barrel} to {message.direction}");
+            GameObject test = Instantiate(_bulletPrefab, message.barrel, Quaternion.LookRotation(message.direction));
+            NetworkServer.Spawn(test, conn);
         }
 
     }
