@@ -29,6 +29,12 @@ public class ControlPlayer : NetworkBehaviour, IMove, IShooter
         _shooter = GetComponent<IShooter>();
     }
 
+    private void OnDestroy()
+    {
+        _playerInput.Move -= OnMove;
+        _playerInput.Shoot -= OnShoot;
+    }
+
     private void Update()
     {
         if (isOwned)

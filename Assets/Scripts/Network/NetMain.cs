@@ -27,6 +27,11 @@ namespace Mirror.Examples.CharacterSelection
             _playersFactory = playersFactory;
         }
 
+        private void OnDestroy()
+        {
+            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        }
+
         public override void OnStartServer()
         {
             base.OnStartServer();
@@ -52,12 +57,6 @@ namespace Mirror.Examples.CharacterSelection
                 direction = shooter.shootDirection
             };
             NetworkClient.Send(shootMessage);
-        }
-
-        private void SpawnBullet()
-        {
-            //_bulletFactory
-            //NetworkServer.Spawn();
         }
 
         void OnCreateCharacter(NetworkConnectionToClient conn, CreateCharacterMessage message)
