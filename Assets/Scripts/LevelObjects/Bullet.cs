@@ -3,25 +3,26 @@ using Mirror;
 using Unity.Netcode.Components;
 using UnityEngine;
 
-public class Bullet : NetworkBehaviour, IBullet
+public class Bullet : NetworkBehaviour//, IBullet
 {
-    private NetworkRigidbody _rigitBody;
+    [SerializeField] private Rigidbody _rigitBody;
+    private float destroyAfter = 2f;
 
-    public void Direction(Vector3 position, Vector3 direction)
+    public override void OnStartServer()
     {
-        transform.position = position;
-
+        Invoke(nameof(DestroySelf), destroyAfter);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Server]
+    void DestroySelf()
+    {
+        NetworkServer.Destroy(gameObject);
+    }
+
     void Start()
     {
-        _rigitBody = GetComponent<NetworkRigidbody>();
+        Debug.Log("AAAAAAAAA");
+        _rigitBody.AddForce(transform.forward * 1000f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

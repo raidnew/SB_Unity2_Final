@@ -1,9 +1,10 @@
-using System;
-using System.Globalization;
 using Assets.Scripts.Interfaces;
 using Mirror;
+using System;
+using System.Globalization;
 using UnityEngine;
 using VContainer;
+using static Mirror.Examples.CharacterSelection.NetMain;
 
 public class ControlPlayer : NetworkBehaviour, IMove, IShooter
 {
@@ -16,7 +17,7 @@ public class ControlPlayer : NetworkBehaviour, IMove, IShooter
     private float _powerTorque = 300;
 
     private Rigidbody _rigidbody;
-    [SerializeField] private GameObject _bullet;
+    [SerializeField] private GameObject _bulletPrefab;
 
     private IShooter _shooter;
 
@@ -60,7 +61,15 @@ public class ControlPlayer : NetworkBehaviour, IMove, IShooter
     {
         //Debug.Log($"Shoot");
         //NetworkManager.Instantiate(_bullet, transform.position, transform.rotation);
-        ServiceLocator.Instance.GameNetwork.Shoot(_shooter);
+        OnCharacterShoot();
+        //ServiceLocator.Instance.GameNetwork.Shoot(_shooter);
+    }
+
+    [Command]
+    private void OnCharacterShoot()
+    {
+        GameObject test = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+        NetworkServer.Spawn(test);
     }
 
     public void Shoot(Vector3 direction)

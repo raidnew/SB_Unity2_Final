@@ -67,17 +67,11 @@ public class Game : MonoBehaviour
 
     private void Disconnect()
     {
-        Debug.Log(ServiceLocator.Instance.GameNetwork.isNetworkActive);
-
         if (ServiceLocator.Instance.GameNetwork.isNetworkActive)
         {
             ServiceLocator.Instance.GameNetwork.StopHost();
             ServiceLocator.Instance.GameNetwork.StopServer();
         }
-        /*
-        _networkManager.StopServer();
-        _networkManager.StopClient();
-        */
     }
 
     private void OnJoinToServer(string ip)

@@ -29,7 +29,7 @@ namespace Mirror.Examples.CharacterSelection
 
         private void OnDestroy()
         {
-            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            Debug.Log("OnDestroy");
         }
 
         public override void OnStartServer()
@@ -68,8 +68,9 @@ namespace Mirror.Examples.CharacterSelection
 
         private void OnCharacterShoot(NetworkConnectionToClient conn, CharacterShootMessage message)
         {
-            Debug.Log($"Shoot from {message.barrel} to {message.direction}");
             GameObject test = Instantiate(_bulletPrefab, message.barrel, Quaternion.LookRotation(message.direction));
+            //IBullet bullet = test.GetComponent<IBullet>();
+            //bullet.Direction(message.barrel, message.direction);
             NetworkServer.Spawn(test, conn);
         }
 
